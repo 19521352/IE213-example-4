@@ -22,7 +22,7 @@
         <option value="3">Three</option>
       </select>
 
-      <button class="btn btn-primary btn-sm disabled check-box-submit-btn">Thực hiện</button>
+      <button class="btn btn-primary btn-sm check-box-submit-btn" disabled="disabled">Thực hiện</button>
 
     </div>
   </div>
@@ -95,7 +95,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     var courseId
     var deleteForm = document.forms['delete-course-form']
-    var containerForm = document.forms['container-form']
+    var containerForm = $('form[name="container-form"]')
     var btnDeleteCourse = document.getElementById('btn-delete-course')
     var checkboxAll = $('#checkbox-all')
     var courseItemCheckbox = $('input[name="courseIds[]"]')
@@ -127,21 +127,13 @@
       renderCheckBoxSubmitBtn()
     })
 
-    // Check box submit button clicked
-    checkBoxSubmitBtn.on('submit', function (e) {
-      var isSubmitable = !$(this).hasClass('disabled')
-      if (!isSubmitable) {
-        e.preventDefault()
-      }
-    })
-
     // Re-render check box submit button
     function renderCheckBoxSubmitBtn() {
       var checkedCount = $('input[name="courseIds[]"]:checked').length
       if (checkedCount) {
-        checkBoxSubmitBtn.removeClass('disabled')
+        checkBoxSubmitBtn.attr('disabled', false)
       } else {
-        checkBoxSubmitBtn.addClass('disabled')
+        checkBoxSubmitBtn.attr('disabled', true)
       }
     }
   })
